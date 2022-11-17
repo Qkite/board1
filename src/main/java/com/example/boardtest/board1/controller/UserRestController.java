@@ -3,10 +3,12 @@ package com.example.boardtest.board1.controller;
 
 import com.example.boardtest.board1.domain.User;
 import com.example.boardtest.board1.domain.dto.UserRequestDto;
+import com.example.boardtest.board1.domain.dto.UserResponseDto;
 import com.example.boardtest.board1.repository.UserRepository;
 import com.example.boardtest.board1.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -24,9 +26,11 @@ public class UserRestController {
 
 
     @GetMapping("/{id}")
-    public String getUser(@PathVariable long id) throws JsonProcessingException {
+    public ResponseEntity<User> getUser(@PathVariable long id) throws JsonProcessingException {
+        log.info(userService.findById(id).toString());
+        User user = userService.findById(id);
 
-       return userService.findById(id);
+       return ResponseEntity.ok().body(user);
 
     }
 

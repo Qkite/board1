@@ -2,14 +2,12 @@ package com.example.boardtest.board1.domain.dto;
 
 
 import com.example.boardtest.board1.domain.User;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
+@Getter
 @ToString
 public class UserRequestDto {
     private String userName;
