@@ -31,19 +31,29 @@ public class UserService {
 
 
 
-    public String[] saveUser(User user){
-        Optional<User> find = userRepository.findByUserName(user.getUserName());
+    public String saveUser(User user){
 
-        if(find.isEmpty()){
+        boolean isEmpty = messaging(user);
+
+        if (isEmpty){
             userRepository.save(user);
-
-            return new String[]{user.getUserName(), "아이디 " + user.getUserName() + "가 생성되었습니다." };
+            return "아이디 " + user.getUserName()+ "가 생성되었습니다.";
         } else{
-            return new String[]{user.getUserName(), "아이디가 중복됩니다. 다른 아이디를 입력해주세요." };
+            return "아이디가 중복됩니다. 다른 아이디를 입력해주세요.";
         }
 
     }
+    
+    // 테스트를 위해서 메시지를 보내는 부분과 계정정보를 저장하는 부분을 분리
+    public boolean messaging(User user){
+        Optional<User> find = userRepository.findByUserName(user.getUserName());
 
+        if(find.isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
 
+    }
 
 }

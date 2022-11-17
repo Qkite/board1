@@ -41,9 +41,9 @@ public class UserRestController {
 
         log.info(userRequestDto.toString());
         User user = userRequestDto.toEntity();
-        String[] infos = userService.saveUser(user);
+        String info = userService.saveUser(user);
 
-        return infos[1];
+        return info;
 
 
 

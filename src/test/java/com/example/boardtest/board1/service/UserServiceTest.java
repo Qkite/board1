@@ -1,12 +1,16 @@
 package com.example.boardtest.board1.service;
 
 import com.example.boardtest.board1.domain.User;
+import com.example.boardtest.board1.domain.dto.UserRequestDto;
 import com.example.boardtest.board1.domain.dto.UserResponseDto;
 import com.example.boardtest.board1.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,28 +33,25 @@ class UserServiceTest {
         Mockito.when(userRepository.save(user1))
                 .thenReturn(user1);
 
-        String[] messages1 = userService.saveUser(user1);
+        String message = userService.saveUser(user1);
 
-        assertEquals(messages1[0], user1.getUserName());
-        assertEquals(messages1[1], "아이디 " + user1.getUserName() + "가 생성되었습니다." );
+        assertEquals(message, "아이디 " + user1.getUserName() + "가 생성되었습니다." );
 
     }
 
     @Test
-    @DisplayName("중복된 아이디를 생성하지 않는지 확인")
+    @DisplayName("중복된 정보를 찾는지 확인")
     void addTest2(){
-        
-        User user2 = new User("안녕히히", "123456");
-        Mockito.when(userRepository.save(user2))
-                .thenReturn(user2);
+
+        User user = new User(2,"안녕히히", "123456");
 
 
-        String[] messages2 = userService.saveUser(user2);
+        Mockito.when(userRepository.findByUserName(user.getUserName()))
+                .thenReturn(Optional.of(user));
 
-        assertEquals(messages2[0], user2.getUserName());
-        assertEquals(messages2[1], "아이디가 중복됩니다. 다른 아이디를 입력해주세요." );
-        // DB에 의존 되지 않아 들어있는 정보인지 확인할 수 없는 상태라서 그런지?
+        Boolean isEmpty = userService.messaging(user);
 
+        assertFalse(isEmpty);
 
     }
 
