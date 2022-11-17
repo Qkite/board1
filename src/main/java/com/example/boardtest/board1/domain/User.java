@@ -1,9 +1,7 @@
 package com.example.boardtest.board1.domain;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +10,9 @@ import javax.persistence.Id;
 
 @Entity
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User {
 
     @Id
@@ -19,4 +20,9 @@ public class User {
     private long id;
     private String userName;
     private String password; // DB에는 존재해야하지만, 사용자에게 공개하면 안됨
+
+    public User(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
 }

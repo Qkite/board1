@@ -29,5 +29,20 @@ public class UserService {
         return jsonData;
     }
 
+    public String[] saveUser(User user){
+        Optional<User> find = userRepository.findByUserName(user.getUserName());
+
+        if(find.isEmpty()){
+            userRepository.save(user);
+            return new String[]{user.getUserName(), "아이디 " + user.getUserName() + "가 생성되었습니다." };
+        } else{
+            return new String[]{user.getUserName(), "아이디가 중복됩니다. 다른 아이디를 입력해주세요." };
+        }
+
+
+
+
+    }
+
 
 }
