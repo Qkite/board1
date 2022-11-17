@@ -20,15 +20,17 @@ public class UserRestController {
 
     private final UserService userService;
 
-    public UserRestController(UserRepository userRepository, UserService userService) {
+
+    public UserRestController(UserService userService) {
         this.userService = userService;
     }
 
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable long id) throws JsonProcessingException {
-        log.info(userService.findById(id).toString());
+
         User user = userService.findById(id);
+        log.info(user.toString());
 
        return ResponseEntity.ok().body(user);
 
