@@ -6,6 +6,7 @@ import com.example.boardtest.board1.repository.UserRepository;
 import com.example.boardtest.board1.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -34,8 +35,8 @@ class UserRestControllerTest {
     UserService userService;
 
 
-
     @Test
+    @DisplayName("id 조회가 제대로 이루어지는지 확인")
     void getTest() throws Exception {
 
         UserResponseDto userResponseDto = UserResponseDto.builder()
@@ -57,7 +58,16 @@ class UserRestControllerTest {
 
         verify(userService).findById(id);
 
-
     }
+
+//    @Test
+//    @DisplayName("계정 생성이 제대로 이루어지는지 확인")
+//    void addTest(){
+//
+//        User savedUser = new User("아이디", "패스워드");
+//
+//
+//        given(userService.saveUser(savedUser))
+//    }
 
 }
